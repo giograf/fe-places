@@ -1,0 +1,73 @@
+html, body {
+    overflow-y: hidden;
+    height: 100vh;
+    max-width: 100%;
+    margin: 0
+}
+
+.places {
+
+}
+
+.places__menu {
+
+}
+
+.places__gallery {
+    overflow-y: scroll;
+}
+
+.places__add-location {
+    position: fixed;
+    bottom: 24px;
+    right: 72px;
+    background: #089637;
+    height: 82px;
+    width: 83px;
+    border: 0;
+}
+
+.places__add-location i {
+    color: #fff;
+}
+
+/* 
+.places__map {
+    width: 100vw;
+    height: 100vh;
+} */
+
+/* Tablets + Desktops */
+@media screen and (min-width: 640px) {
+ .places__gallery {
+
+ }
+}
+
+/* Desktops */
+@media screen and (min-width: 1024px) {
+    .places {
+        height: 100%;
+        display: grid;
+        grid-template-columns: 25vw repeat(3, 1fr);
+        grid-template-rows: 70px repeat(2, 100%);
+        flex-wrap: wrap;
+        grid-template-areas:
+        "Menu Menu Menu Menu"
+        "Gallery Map Map Map"
+        "Gallery Map Map Map";
+    }
+
+    .places__menu {
+        grid-area: Menu;
+    }
+    
+    .places__gallery {
+        grid-area: Gallery;
+    }
+
+    .places__map {
+        height: calc(100vh - 70px);
+        grid-area: Map;
+    }
+}
