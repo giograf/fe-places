@@ -8,7 +8,11 @@ module.exports = {
   },
   plugins: [
     "@snowpack/plugin-postcss",
-    "snowpack-plugin-less",
+    ["snowpack-plugin-less",
+      {
+        errorReporting: false
+      }
+    ],
     [
       'snowpack-plugin-terser',
       {
