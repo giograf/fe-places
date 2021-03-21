@@ -107,3 +107,6 @@ dist
 .snowpack
 build
 node_modules
+
+# Other
+.history
