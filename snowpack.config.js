@@ -8,11 +8,7 @@ module.exports = {
   },
   plugins: [
     "@snowpack/plugin-postcss",
-    ["snowpack-plugin-less",
-      {
-        errorReporting: false
-      }
-    ],
+    "snowpack-plugin-less",
     [
       'snowpack-plugin-terser',
       {
@@ -33,16 +29,10 @@ module.exports = {
     /* Enable an SPA Fallback in development: */
     // {"match": "routes", "src": ".*", "dest": "/index.html"},
   ],
-  optimize: {
-    bundle: true
-  },
   packageOptions: {
     /* ... */
   },
   devOptions: {
     /* ... */
-  },
-  buildOptions: {
-    /* ... */
-  },
+  }
 };
