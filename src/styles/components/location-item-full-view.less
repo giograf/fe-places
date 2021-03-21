@@ -1,0 +1,36 @@
+.location-item-full-view {
+    > div {
+        margin-bottom: 25px;
+    }
+
+    .location-item-full-view__name {
+        font-size: @font-size-larger;
+    }
+}
+
+.location-item-full-view__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .location-item-full-view__hours {
+        display: flex;
+        flex-basis: 100%;
+        margin-bottom: 10px;
+
+        .location-item-full-view__hour-separator {
+            padding: 0 5px;
+        }
+    }
+
+    .location-item-full-view__keywords {
+        min-height: 50px;
+
+        .location-item-full-view__keyword {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 3px;
+            padding: 5px;
+            font-size: @font-size-small;
+        }
+    }
+}
