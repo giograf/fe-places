@@ -4,9 +4,13 @@ import Gallery from './gallery/gallery'
 
 class App {
     googleMap =  new GoogleMap();
-    navigation = new Navigation();
-    gallery = new Gallery(this.googleMap, this.navigation);
+    navigation = null;
+    gallery = null;
 }
 
 var placesApp = new App();
-placesApp.googleMap.initMap()
+
+placesApp.googleMap.initMap().then(() => {
+    placesApp.navigation = new Navigation();
+    placesApp.gallery = new Gallery(placesApp.googleMap, placesApp.navigation)
+})

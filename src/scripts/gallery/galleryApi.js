@@ -10,7 +10,7 @@ export default class GalleryApi {
                     description: "Lamia on digitaalisen kasvun kumppani. Olemme liiketoiminnan kehittäjiä, digitaalisen kaupankäynnin asiantuntijoita ja teknologioiden edelläkävijöitä. Asiakkaamme luottavat meihin, koska tuotamme kestävää ja mitattavaa arvoa designin, ohjelmistokehityksen, pilven ja datan keinoin.",
                     openingHour: "09:00",
                     closingHour: "18:00",
-                    geolocation: {lng: 60.17081237559105, lat: 24.928154339125673},
+                    geolocation: {lng: 24.928154339125673, lat: 60.17081237559105},
                     keywords: ["web", "it", "workplace"],
                     favourite: false
                 }

@@ -105,5 +105,7 @@ export default class Gallery  {
         })
 
         document.querySelector(".gallery__locations-list").innerHTML = locationItemsHtmlArray.join("");
+
+        this.googleMap.renderItemLocationMarker(locationItems[0]);
     }
 }

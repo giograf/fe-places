@@ -7,61 +7,64 @@ export default class GoogleMap {
   defaultLocation = { lat: -25.344, lng: 131.036 };
   mapEl = document.querySelector("#map");
   zoom = 8;
+  googleMapObject = null;
 
   // Initialize and add the map
   initMap = async () => {
+    // Wait till user's location and maps load
     let initialLocation = await this.getInitialGeoLocation();
-    let mapEl = this.mapEl;
-    this.googleMapApi.load().then(() => {
-      this.renderMap(mapEl, initialLocation)
+    await this.googleMapApi.load().then(() => {
+      this.renderMap(initialLocation)
     });
   };
 
-  renderMap(mapEl, initialLocation) {
+  renderMap(initialLocation) {
+    this.googleMapObject = google;
     const options = {
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeId: this.googleMapObject.maps.MapTypeId.ROADMAP,
       zoom: this.zoom,
       center: initialLocation,
       streetViewControl: false,
       disableDefaultUI: true
     }
-  
-    const map = new google.maps.Map(mapEl, options)
-  
-    this.renderMarker(map, initialLocation)
+
+    this.map = new this.googleMapObject.maps.Map(this.mapEl, options);
   }
 
-  renderMarker(map, initialLocation) {
-    // The marker, positioned at Uluru
-    const marker = new google.maps.Marker({
-      position: initialLocation,
-      map: map,
+  renderItemLocationMarker(itemLocation) {
+    console.log(itemLocation.geolocation)
+    console.log(this.map)
+    const marker = new this.googleMapObject.maps.Marker({
+      position: itemLocation.geolocation,
+      map: this.map,
     });
+  }
+
+  renderItemLocationMarkers(itemLocations) {
+    return itemLocations.map(itemLocation => {
+      new this.googleMapObject.maps.Marker({
+        position: itemLocation.geolocation,
+        map: this.map,
+      });
+    })
   }
 
   getInitialGeoLocation = async () => {
     if (navigator.geolocation) {
-      let geoLocation;
+        let geoLocation;
 
-      const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      });
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
 
-      geoLocation = {
-        lng: position.coords.longitude,
-        lat: position.coords.latitude,
-      };
-
-      // navigator.geolocation.getCurrentPosition((position) => {
-      //   geoLocation = {
-      //     lng: position.coords.longitude,
-      //     lat: position.coords.latitude,
-      //   };
-      // });
+        geoLocation = {
+          lng: position.coords.longitude,
+          lat: position.coords.latitude,
+        };
 
         return geoLocation
       } else {
-      return this.defaultLocation;
+        return this.defaultLocation;
     }
   };
 }
