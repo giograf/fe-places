@@ -3,11 +3,12 @@ import LocationItem from '../locationItem/locationItem';
 import Navigation from '../navigation/navigation'
 
 export default class Gallery  {
-    constructor() {
+    constructor(googleMap, navigation) {
         this.galleryApi = new GalleryApi();
-        this.navigation = new Navigation();
+        this.googleMap = googleMap;
+        this.navigation = navigation;
         this.locationItems = this.galleryApi.getLocationItems();
-        this.locationItemsToHtml();
+        this.locationItemsToHtml(this.locationItems);
         this.locationItemClickHandler();
     }
 
@@ -32,11 +33,49 @@ export default class Gallery  {
                 this.selectedLocationItem = this.locationItems.find(locationItem => {
                     return locationItemHtmlParent.getAttribute("data-location-id") == locationItem.id
                 })
+
+                this.locationItemFullViewToHtml(this.selectedLocationItem);
             });
         })
     }
 
-    locationItemsToHtml = () => {
+    locationItemFullViewToHtml = (locationItem) => {
+        const itemKewordsHtml = locationItem.keywords.map(keyword => {
+            return `<div class="location-item-full-view__keyword">${keyword}</div>`
+        }).join("")
+        const html = `  <button class="location-item-full-view__close"><i class="im im-x-mark"></i></button>
+                        <div class="location-item-full-view__item-wrapper">
+                            <div class="location-item-full-view__name">
+                                ${locationItem.title}
+                            </div>
+                            <div class="location-item-full-view__description">
+                                ${locationItem.description}                            
+                            </div>
+                            <div class="location-item-full-view__footer">
+                                <div class="location-item-full-view__hours">    
+                                    <div class="location-item-full-view__opening-hour">${locationItem.openingHour}</div>
+                                    <div class="location-item-full-view__hour-separator">-</div>
+                                    <div class="location-item-full-view__closing-hour">${locationItem.closingHour}</div>
+                                </div>
+                                <div class="location-item-full-view__keywords">
+                                    ${itemKewordsHtml}
+                                </div>
+                                <div
+                                    class="location-item-full-view__favourite"
+                                    data-favourite="${locationItem.favourite}"
+                                >
+                                    <i class="im im-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="button__location-item-full-view__submit">
+                            Edit
+                        </button>`
+        document.querySelector(".location-item-full-view").innerHTML = html;
+        this.navigation.locationItemFullViewHandler();
+    }
+
+    locationItemsToHtml = (locationItems) => {
         const locationItemsHtmlArray = this.locationItems.map((locationItem) => {
             // TODO: sanitize all HTML in the app
             return `<div
@@ -66,6 +105,5 @@ export default class Gallery  {
         })
 
         document.querySelector(".gallery__locations-list").innerHTML = locationItemsHtmlArray.join("");
-        this.navigation.locationItemFullViewHandler();
     }
 }

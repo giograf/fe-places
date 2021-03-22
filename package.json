@@ -15,6 +15,7 @@
     "postcss-less": "^4.0.1",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
+    "sanitize-html": "^2.3.3",
     "snowpack": "^3.0.1",
     "snowpack-plugin-less": "^1.0.7",
     "snowpack-plugin-terser": "^0.1.0",

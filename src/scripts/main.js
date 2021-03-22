@@ -5,7 +5,7 @@ import Gallery from './gallery/gallery'
 class App {
     googleMap =  new GoogleMap();
     navigation = new Navigation();
-    gallery = new Gallery();
+    gallery = new Gallery(this.googleMap, this.navigation);
 }
 
 var placesApp = new App();
