@@ -1,6 +1,5 @@
 import GalleryApi from './galleryApi';
 import LocationItem from '../locationItem/locationItem';
-import LocationItemFullView from '../locationItem/locationItemFullView';
 import Navigation from '../navigation/navigation'
 
 export default class Gallery  {
