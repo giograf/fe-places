@@ -1,22 +1,39 @@
 @import '../../globals.less';
 
-.places__add-location {
+.button--main {
+    width: 100%;
+    padding: 16px;
+    font-size: @font-size-larger;
+    border: 1px solid black;
+    text-align: center;
+    background: @color-success;
+    line-height: 0.9rem;
+    color: white;
+}
+
+.button--add {
     position: fixed;
     bottom: 30px;
-    right: 30px;
-    background: #089637;
+    right: 10px;
+    background: @color-success;
+    border-radius: 2px;
+    border: none;
     height: 64px;
     width: 64px;
-    border: 0;
+
+    i {
+        color: #fff;
+    }
+
+    @media screen and (min-width: @breakpoint-tablet) {
+        .places__add-location {
+            height: 82px;
+            width: 83px;
+        }
+    }
 }
 
-.places__add-location i {
-    color: #fff;
-}
-
-.location-item-submission-view__close,
-.location-item-edit-view__close,
-.location-item-full-view__close {
+.button--close {
     background-color: transparent;
     width: 30px;
     height: 30px;
@@ -24,15 +41,10 @@
     right: 12px;
     border: none;
 
-    &:focus, &:hover, &:active {
+    &:focus,
+    &:hover,
+    &:active {
         border: none;
         outline: none;
-    }
-}
-
-@media screen and (min-width: @breakpoint-tablet) {
-    .places__add-location {
-        height: 82px;
-        width: 83px;
     }
 }

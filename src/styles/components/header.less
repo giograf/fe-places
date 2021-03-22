@@ -5,13 +5,15 @@
     justify-content: space-between;
     align-content: center;
     height: 100%;
+    font-family: @font-family-secondary;
 }
 
 .header__logo {
     h1 {
         font-size: @font-size-largest;
         line-height: 1;
-        margin: 6px 0 0 11px;
+        margin: 10px 0 0 11px;
+        color: #efefef;
     }
 }
 
@@ -25,11 +27,22 @@
 
     i {
         font-size: @font-size-larger;
+        color: white;
+        margin-top: 5px;
     }
 }
 
 /* Tablets + Desktops */
 @media screen and (min-width: @breakpoint-tablet) {
+    .header__logo {
+        h1 {
+            line-height: 1;
+            font-size: @font-size-heading-mobile;
+            margin: 17px 0 0 11px;
+            color: #efefef;
+        }
+    }
+
     .places__gallery {
     }
 
@@ -46,7 +59,7 @@
         h1 {
             font-size: @font-size-heading-desktop;
             line-height: 1;
-            margin: 6px 0 0 11px;
+            margin: 12px 0 0 11px;
         }
     }
 }

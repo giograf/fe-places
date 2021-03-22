@@ -1,18 +1,19 @@
 @import '../globals.less';
+@import '../components/ui/buttons.less';
 
 .location-item-submission-view {
     input, textarea {
-        width: 220px;
+        width: 100%;
         margin-bottom: 16px;
     }
 
     .button__location-item-submission-view__submit {
-        width: 100%;
-        padding: 16px;
-        font-size: @font-size-larger;
-        border: 1px solid black;
-        text-align: center;
+        .button--main();
     }
+}
+
+.places__add-location {
+    .button--add();
 }
 
 @media screen and (min-width: @breakpoint-tablet) {
@@ -21,4 +22,8 @@
             width: 80%;
         }
     }
+}
+
+.location-item-submission-view__close {
+    .button--close()
 }

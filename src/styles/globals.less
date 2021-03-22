@@ -4,17 +4,14 @@
 @breakpoint-desktop: 1024px;
 @breakpoint-desktop-large: 1440px;
 
-//Background
-@background-color-primary: #fffef7;
-@background-image-primary: url("https://transparenttextures.com/patterns/clean-gray-paper.png");
-
 //Z-index
 @z-index-gallery: 100;
 @z-index-full-item-view: 200;
 @z-index-add-edit-view: 300;
 
 //Fonts
-@font-family-primary: "Open Sans", serif;
+@font-family-primary: "Poppins", serif;
+@font-family-secondary: "Pangolin", serif;
 @font-size-base: 16px;
 @font-size-base-line-height: 1.5;
 @font-size-heading-line-height: 1.3;
@@ -25,12 +22,22 @@
 @font-size-large: 1.25rem;
 @font-size-small: 0.8rem;
 
+// Colors
+@color-primary: #1F4BDB;
+@color-accent: #DB4B73;
+@color-success: #089637;
+@color-warning: #DB7F00;
+@color-complimentary: #0CB7DB;
+
+//Background
+@background-color-primary: #DB4B73;
+
 //Borders
-@border-color: #c6c6b266;
+@border-color: @color-complimentary;
 
 //Form
-@input-color: #858579;
-@input-color-focus: #858579;
+@input-color: @color-complimentary;
+@input-color-focus: @color-complimentary;
 
 //Sidebar
 @sidebar-width-mobile: 280px;
