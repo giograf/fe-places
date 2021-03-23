@@ -22,7 +22,7 @@ export default class GalleryApi {
                     description: "Polar Electro Oy (globally known as Polar) is a manufacturer of sports training computers, particularly known for developing the world's first wireless heart rate monitor. The company is based in Kempele, Finland and was founded in 1977.",
                     openingHour: "08:00",
                     closingHour: "17:00",
-                    geolocation: {lng: 24.928154339125673, lat: 60.17081237559105},
+                    geolocation: {lng: 25.447395680862304, lat: 64.94498659771413},
                     keywords: ["sports", "electronics", "it", "workplace"],
                     favourite: false
                 }

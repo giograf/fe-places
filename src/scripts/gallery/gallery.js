@@ -106,6 +106,6 @@ export default class Gallery  {
 
         document.querySelector(".gallery__locations-list").innerHTML = locationItemsHtmlArray.join("");
 
-        this.googleMap.renderItemLocationMarker(locationItems[0]);
+        this.googleMap.renderItemLocationMarkers(locationItems);
     }
 }

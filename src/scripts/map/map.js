@@ -33,7 +33,7 @@ export default class GoogleMap {
   }
 
   renderItemLocationMarker(itemLocation) {
-    const marker = new this.googleMapObject.maps.Marker({
+    return new this.googleMapObject.maps.Marker({
       position: itemLocation.geolocation,
       map: this.map
     });
