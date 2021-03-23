@@ -12,6 +12,18 @@ export default class GalleryApi {
                     closingHour: "18:00",
                     geolocation: {lng: 24.928154339125673, lat: 60.17081237559105},
                     keywords: ["web", "it", "workplace"],
+                    favourite: true
+                }
+            ).getItem(),
+            new LocationItem(
+                {
+                    id: "asdssd32r234",
+                    title: "Polar Electro Oy",
+                    description: "Polar Electro Oy (globally known as Polar) is a manufacturer of sports training computers, particularly known for developing the world's first wireless heart rate monitor. The company is based in Kempele, Finland and was founded in 1977.",
+                    openingHour: "08:00",
+                    closingHour: "17:00",
+                    geolocation: {lng: 24.928154339125673, lat: 60.17081237559105},
+                    keywords: ["sports", "electronics", "it", "workplace"],
                     favourite: false
                 }
             ).getItem()

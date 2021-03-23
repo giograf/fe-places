@@ -33,8 +33,6 @@ export default class GoogleMap {
   }
 
   renderItemLocationMarker(itemLocation) {
-    console.log(itemLocation.geolocation)
-    console.log(this.map)
     const marker = new this.googleMapObject.maps.Marker({
       position: itemLocation.geolocation,
       map: this.map

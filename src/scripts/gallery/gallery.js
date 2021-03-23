@@ -35,6 +35,7 @@ export default class Gallery  {
                 })
 
                 this.locationItemFullViewToHtml(this.selectedLocationItem);
+                this.navigation.openLocationItemFullView();
             });
         })
     }
@@ -43,36 +44,35 @@ export default class Gallery  {
         const itemKewordsHtml = locationItem.keywords.map(keyword => {
             return `<div class="location-item-full-view__keyword">${keyword}</div>`
         }).join("")
-        const html = `  <button class="location-item-full-view__close"><i class="im im-x-mark"></i></button>
-                        <div class="location-item-full-view__item-wrapper">
-                            <div class="location-item-full-view__name">
-                                ${locationItem.title}
-                            </div>
-                            <div class="location-item-full-view__description">
-                                ${locationItem.description}                            
-                            </div>
-                            <div class="location-item-full-view__footer">
-                                <div class="location-item-full-view__hours">    
-                                    <div class="location-item-full-view__opening-hour">${locationItem.openingHour}</div>
-                                    <div class="location-item-full-view__hour-separator">-</div>
-                                    <div class="location-item-full-view__closing-hour">${locationItem.closingHour}</div>
+            const html = `  
+                            <div class="location-item-full-view__item-wrapper">
+                                <div class="location-item-full-view__name">
+                                    ${locationItem.title}
                                 </div>
-                                <div class="location-item-full-view__keywords">
-                                    ${itemKewordsHtml}
+                                <div class="location-item-full-view__description">
+                                    ${locationItem.description}                            
                                 </div>
-                                <div
-                                    class="location-item-full-view__favourite"
-                                    data-favourite="${locationItem.favourite}"
-                                >
-                                    <i class="im im-star"></i>
+                                <div class="location-item-full-view__footer">
+                                    <div class="location-item-full-view__hours">    
+                                        <div class="location-item-full-view__opening-hour">${locationItem.openingHour}</div>
+                                        <div class="location-item-full-view__hour-separator">-</div>
+                                        <div class="location-item-full-view__closing-hour">${locationItem.closingHour}</div>
+                                    </div>
+                                    <div class="location-item-full-view__keywords">
+                                        ${itemKewordsHtml}
+                                    </div>
+                                    <div
+                                        class="location-item-full-view__favourite"
+                                        data-favourite="${locationItem.favourite}"
+                                    >
+                                        <i class="im im-star"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <button class="button__location-item-full-view__submit">
-                            Edit
-                        </button>`
-        document.querySelector(".location-item-full-view").innerHTML = html;
-        this.navigation.locationItemFullViewHandler();
+                            <button class="button__location-item-full-view__submit">
+                                Edit
+                            </button>`
+        document.querySelector(".location-item-full-view__wrapper").innerHTML = html;
     }
 
     locationItemsToHtml = (locationItems) => {

@@ -14,6 +14,7 @@ export default class Navigation {
 
         this.openMobileMenuHandler();
         this.locationItemSubmissionViewHandler();
+        this.locationItemFullViewCloseHandler();
     }
 
     openMobileMenuHandler = () => {
@@ -37,19 +38,20 @@ export default class Navigation {
         });
     }
 
-    locationItemFullViewHandler = () => {
-        this.locationItemFullViewContainerOpener = document.querySelector(".gallery__location-item");
-        this.locationItemFullViewContainerCloser = document.querySelector(".location-item-full-view__close")
-        this.locationItemFullViewContainer = document.querySelector(".location-item-full-view");
-        this.locationItemFullViewOpen = false;
-        
-        this.locationItemFullViewContainerOpener.addEventListener('click', (event) => {
-            this.locationItemFullViewContainer.classList.add('location-item-full-view__-open');
-            this.locationItemFullViewOpen = true;
-        });
+    openLocationItemFullView = () => {
+        const locationItemFullViewContainer = document.querySelector(".location-item-full-view");
+        locationItemFullViewContainer.classList.add('location-item-full-view--open');
+        this.locationItemFullViewOpen = true;
 
-        this.locationItemFullViewContainerCloser.addEventListener('click', (event) => {
-            this.locationItemFullViewContainer.classList.remove('location-item-full-view__-open')
+        this.locationItemFullViewCloseHandler();
+    }
+
+    locationItemFullViewCloseHandler = () => {
+        const locationItemFullViewContainer = document.querySelector(".location-item-full-view");
+        const locationItemFullViewContainerCloser = document.querySelector(".location-item-full-view__close")
+
+        locationItemFullViewContainerCloser.addEventListener('click', (event) => {
+            locationItemFullViewContainer.classList.remove('location-item-full-view--open')
             this.locationItemFullViewOpen = false;
         });
     }
