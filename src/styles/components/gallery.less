@@ -100,5 +100,16 @@
     }
 
     .gallery__location-item-favourite {
+        &[data-favourite="true"] {
+            color: @color-success;
+
+            &:hover {
+                color: black;
+            }
+        }
+
+        &:hover {
+            color: @color-success;
+        }
     }
 }
