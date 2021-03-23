@@ -15,23 +15,19 @@ export default class LocationItem {
         this.locationItemApi = new LocationItemApi();
     }
 
-    removeItem = () => {
+    removeItem = async () => {
 
     }
 
-    addKeyword = (keyword) => {
+    removeKeyword = async (keyword) => {
         
     }
 
-    removeKeyword = (keyword) => {
+    editItem = async (modifiedItem) => {
         
     }
 
-    editItem = (title, name, openingHour, closingHour, lat, lon) => {
-        
-    }
-
-    setItem = (item) => {
+    addItem = async (newItem) => {
         
     }
 

@@ -25,7 +25,8 @@ export default class GoogleMap {
       zoom: this.zoom,
       center: initialLocation,
       streetViewControl: false,
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      mapId: "cacfe61a9beaf18c"
     }
 
     this.map = new this.googleMapObject.maps.Map(this.mapEl, options);
@@ -36,7 +37,7 @@ export default class GoogleMap {
     console.log(this.map)
     const marker = new this.googleMapObject.maps.Marker({
       position: itemLocation.geolocation,
-      map: this.map,
+      map: this.map
     });
   }
 
@@ -44,7 +45,7 @@ export default class GoogleMap {
     return itemLocations.map(itemLocation => {
       new this.googleMapObject.maps.Marker({
         position: itemLocation.geolocation,
-        map: this.map,
+        map: this.map
       });
     })
   }
