@@ -2,6 +2,10 @@
 @import '../components/ui/buttons.less';
 
 .location-item-submission-view {
+    > h2 {
+        margin-top: -5px;
+    }
+
     input, textarea {
         width: 100%;
         margin-bottom: 16px;
@@ -16,14 +20,12 @@
     .button--add();
 }
 
-@media screen and (min-width: @breakpoint-tablet) {
-    .location-item-submission-view {
-        input, textarea {
-            width: 80%;
-        }
-    }
-}
-
 .location-item-submission-view__close {
     .button--close()
+}
+
+@media screen and (max-width: @breakpoint-tablet) {
+    .location-item-submission-view > h2 {
+        margin-top: -2px;
+    }
 }
