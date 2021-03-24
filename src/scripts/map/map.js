@@ -32,19 +32,30 @@ export default class GoogleMap {
     this.map = new this.googleMapObject.maps.Map(this.mapEl, options);
   }
 
+  removeMarker(marker) {
+    marker.setMap(null);
+  }
+
+  removeAllMarker(markers) {
+    markers.forEach(marker => {
+      this.removeMarker(marker)
+    })
+  }
+
   renderItemLocationMarker(itemLocation) {
-    return new this.googleMapObject.maps.Marker({
+    itemLocation.locationMarker = new this.googleMapObject.maps.Marker({
       position: itemLocation.geolocation,
       map: this.map
     });
+      
+    return itemLocation;
   }
 
   renderItemLocationMarkers(itemLocations) {
     return itemLocations.map(itemLocation => {
-      new this.googleMapObject.maps.Marker({
-        position: itemLocation.geolocation,
-        map: this.map
-      });
+      itemLocation = this.renderItemLocationMarker(itemLocation);
+
+      return itemLocation;
     })
   }
 
