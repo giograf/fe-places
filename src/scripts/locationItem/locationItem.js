@@ -10,7 +10,8 @@ export default class LocationItem {
             closingHour: item.closingHour,
             geolocation: item.geolocation,
             keywords: item.keywords,
-            favourite: item.favourite
+            favourite: item.favourite,
+            locationMarker: item.marker ?? null
         }
         this.locationItemApi = new LocationItemApi();
     }

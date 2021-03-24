@@ -9,6 +9,49 @@
     .location-item-full-view__name {
         font-size: @font-size-larger;
     }
+
+    .location-item-full-view__footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    
+        .location-item-full-view__hours {
+            display: flex;
+            flex-basis: 100%;
+            margin: 10px 0;
+    
+            .location-item-full-view__hour-separator {
+                padding: 0 5px;
+            }
+        }
+    
+        .location-item-full-view__keywords {
+            display: flex;
+    
+            .location-item-full-view__keyword {
+                background: rgba(255, 255, 255, 0.5);
+                margin-right: 8px;
+                border-radius: 3px;
+                padding: 5px;
+                font-size: @font-size-small;
+            }
+        }
+    
+        .location-item-full-view__favourite {
+            &[data-favourite="true"] {
+                color: @color-success;
+    
+                &:hover {
+                    color: black;
+                }
+            }
+    
+            &:hover {
+                color: @color-success;
+            }
+        }
+    }
 }
 
 .location-item-full-view__close {
@@ -17,48 +60,4 @@
 
 .button__location-item-full-view__submit {
     .button--main();
-}
-
-
-.location-item-full-view__footer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 10px;
-
-    .location-item-full-view__hours {
-        display: flex;
-        flex-basis: 100%;
-        margin: 10px 0;
-
-        .location-item-full-view__hour-separator {
-            padding: 0 5px;
-        }
-    }
-
-    .location-item-full-view__keywords {
-        display: flex;
-
-        .location-item-full-view__keyword {
-            background: rgba(255, 255, 255, 0.5);
-            margin-right: 8px;
-            border-radius: 3px;
-            padding: 5px;
-            font-size: @font-size-small;
-        }
-    }
-
-    .location-item-full-view__favourite {
-        &[data-favourite="true"] {
-            color: @color-success;
-
-            &:hover {
-                color: black;
-            }
-        }
-
-        &:hover {
-            color: @color-success;
-        }
-    }
 }

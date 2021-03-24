@@ -6,49 +6,46 @@
     align-content: center;
     height: 100%;
     font-family: @font-family-secondary;
-}
 
-.header__logo {
-    h1 {
-        font-size: @font-size-largest;
-        line-height: 1;
-        margin: 10px 0 0 11px;
-        color: #efefef;
-    }
-}
-
-.header__navbar {
-    display: flex;
-    align-items: center;
-}
-
-.header__mobile-menu-toggle {
-    margin-right: 15px;
-
-    i {
-        font-size: @font-size-larger;
-        color: white;
-        margin-top: 5px;
-    }
-}
-
-/* Tablets + Desktops */
-@media screen and (min-width: @breakpoint-tablet) {
     .header__logo {
         h1 {
+            font-size: @font-size-largest;
             line-height: 1;
-            font-size: @font-size-heading-mobile;
-            margin: 17px 0 0 11px;
-            color: #efefef;
+            margin: 10px 0 0 11px;
+            color: @color-boring;
         }
     }
-
-    .places__gallery {
-    }
-
+    
     .header__navbar {
-        .header__mobile-menu-toggle {
-            display: none;
+        display: flex;
+        align-items: center;
+    }
+    
+    .header__mobile-menu-toggle {
+        margin-right: 15px;
+    
+        i {
+            font-size: @font-size-larger;
+            color: white;
+            margin-top: 5px;
+        }
+    }
+    
+    /* Tablets + Desktops */
+    @media screen and (min-width: @breakpoint-tablet) {
+        .header__logo {
+            h1 {
+                line-height: 1;
+                font-size: @font-size-heading-mobile;
+                margin: 17px 0 0 11px;
+                color: @color-boring;
+            }
+        }
+    
+        .header__navbar {
+            .header__mobile-menu-toggle {
+                display: none;
+            }
         }
     }
 }

@@ -56,6 +56,14 @@ export default class Navigation {
         });
     }
 
+    openLocationItemEditView = () => {
+        const locationItemEditViewContainer = document.querySelector(".location-item-edit-view");
+        locationItemEditViewContainer.classList.add('location-item-edit-view--open');
+        this.locationItemFullViewOpen = true;
+
+        this.locationItemFullViewCloseHandler();
+    }
+
     // locationItemEditViewHandler = () => {
     //     this.mobileMenuContainerOpener.addEventListener('click', (event) => {
     //         // TODO: Add Close Toggle
