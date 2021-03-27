@@ -2,10 +2,6 @@
 @import '../components/ui/buttons.less';
 
 .location-item-submission-view {
-    > h2 {
-        margin-top: -5px;
-    }
-
     input, textarea { 
         max-width: 100%;
         min-width: 100%;
@@ -13,6 +9,24 @@
     }
 
     .button__location-item-submission-view__submit {
+        .button--main();
+    }
+
+    .location-item-submission-view__footer {
+        display: flex;    
+        max-width: 100%;
+        justify-content: space-between;
+
+        input {
+            min-width: auto;
+        }
+
+        .location-item-submission-view__favourite {
+            .button--favourite();
+        }
+    }
+
+    .location-item-submission-view__submit {
         .button--main();
     }
 }
@@ -23,10 +37,4 @@
 
 .location-item-submission-view__close {
     .button--close()
-}
-
-@media screen and (max-width: @breakpoint-tablet) {
-    .location-item-submission-view > h2 {
-        margin-top: -2px;
-    }
 }
