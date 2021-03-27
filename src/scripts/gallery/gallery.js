@@ -1,20 +1,28 @@
 import GalleryApi from './galleryApi';
 import LocationItem from '../locationItem/locationItem';
 import Navigation from '../navigation/navigation';
+import LocationItemFullView from '../locationItem/locationItemFullView';
+import LocationItemSubmissionView from '../locationItem/locationItemSubmissionView';
+import LocationItemEditView from '../locationItem/locationItemEditView';
 
 export default class Gallery {
     constructor(googleMap, navigation) {
         this.openNowSelected = false;
         this.onlyFavouritesSelected = false;
+        this.selectedLocationItem = null;
         this.galleryApi = new GalleryApi();
+        this.LocationItemSubmissionView = new LocationItemSubmissionView(this);
+        this.LocationItemEditView = new LocationItemEditView(this);
+        this.locationItemFullView = null;
         this.googleMap = googleMap;
         this.navigation = navigation;
         this.locationItems = this.galleryApi.getLocationItems();
-        this.selectedLocationItem = null;
 
         // Render the initial set of location items
         this.locationItemsToHtml(this.locationItems);
         this.locationItemClickHandler();
+        this.onlyFavouritesButtonClickedHandler();
+        this.openNowButtonClickedHandler();
     }
 
     getLocationItems = (openNow, onlyFavourites) => {
@@ -25,24 +33,39 @@ export default class Gallery {
         return this.locationItems;
     };
 
-    OnlyFavouritesButtonClickedHandler = () => {
+    onlyFavouritesButtonClickedHandler = () => {
         // TODO: add event listener
-        this.onlyFavouritesSelected = !this.onlyFavouritesSelected;
-        this.locationItems = this.getLocationItems(
-            this.openNowSelected,
-            this.onlyFavouritesSelected,
-            this.locationItems,
-        );
+        document
+            .querySelector('.gallery_search-only-favourites')
+            .addEventListener('click', (event) => {
+                this.onlyFavouritesSelected = !this.onlyFavouritesSelected;
+                this.locationItems = this.getLocationItems(
+                    this.openNowSelected,
+                    this.onlyFavouritesSelected,
+                    this.locationItems,
+                );
+
+                this.locationItemsToHtml(this.locationItems); // TODO: Add map marker update
+                // TODO: Add map marker update
+                this.locationItemClickHandler();
+            });
     };
 
-    OpenNowButtonClickedHandler = () => {
-        // TODO: add event listener
-        this.openNowSelected = !this.openNowSelected;
-        this.locationItems = this.getLocationItems(
-            this.openNowSelected,
-            this.onlyFavouritesSelected,
-            this.locationItems,
-        );
+    openNowButtonClickedHandler = () => {
+        document
+            .querySelector('.gallery_search-only-open')
+            .addEventListener('click', (event) => {
+                this.openNowSelected = !this.openNowSelected;
+                this.locationItems = this.getLocationItems(
+                    this.openNowSelected,
+                    this.onlyFavouritesSelected,
+                    this.locationItems,
+                );
+
+                this.locationItemsToHtml(this.locationItems);
+                // TODO: Add map marker update
+                this.locationItemClickHandler();
+            });
     };
 
     locationItemClickHandler = () => {
@@ -75,69 +98,22 @@ export default class Gallery {
                         },
                     );
 
-                    this.locationItemFullViewToHtml(this.selectedLocationItem);
-                    this.navigation.openLocationItemFullView();
+                    this.locationItemFullView = new LocationItemFullView(this.selectedLocationItem);
                 });
             });
     };
 
-    locationItemFullViewToHtml = (locationItem) => {
-        const itemKewordsHtml = locationItem.keywords
-            .map((keyword) => {
-                return `<div class="location-item-full-view__keyword">${keyword}</div>`;
-            })
-            .join('');
-            
-        const html = `  
-                    <div class="location-item-full-view__item-wrapper">
-                        <div class="location-item-full-view__name">
-                            ${locationItem.title}
-                        </div>
-                        <div class="location-item-full-view__description">
-                            ${locationItem.description}                            
-                        </div>
-                        <div class="location-item-full-view__footer">
-                            <div class="location-item-full-view__hours">    
-                                <div class="location-item-full-view__opening-hour">${locationItem.openingHour}</div>
-                                <div class="location-item-full-view__hour-separator">-</div>
-                                <div class="location-item-full-view__closing-hour">${locationItem.closingHour}</div>
-                            </div>
-                            <div class="location-item-full-view__keywords">
-                                ${itemKewordsHtml}
-                            </div>
-                            <div
-                                class="location-item-full-view__favourite"
-                                data-favourite="${locationItem.favourite}"
-                            >
-                                <i class="im im-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="button__location-item-full-view__submit>
-                        Edit
-                    </button>`;
-
-        //this.locationItemEditButtonClickHandler();
-
-        document.querySelector(
-            '.location-item-full-view__wrapper',
-        ).innerHTML = html;
-    };
-
-    locationItemEditButtonClickHandler = () => {
-        this.navigation.openLocationItemEditView()
-    }
-
     locationItemsToHtml = (locationItems) => {
         // Prepare HTML for Location Items
+        console.log(this);
         const locationItemsHtmlArray = this.locationItems.map(
             (locationItem) => {
                 // TODO: sanitize all HTML in the app
                 return `<div
-                        class="gallery__location-item"
-                        data-location-id="${locationItem.id}"
-                        data-location-lng="${locationItem.geolocation.lng}"
-                        data-location-lat="${locationItem.geolocation.lat}">
+                            class="gallery__location-item"
+                            data-location-id="${locationItem.id}"
+                            data-location-lng="${locationItem.geolocation.lng}"
+                            data-location-lat="${locationItem.geolocation.lat}">
                         <div class="gallery__location-item-name">
                             ${locationItem.title}
                         </div>
@@ -165,7 +141,9 @@ export default class Gallery {
         ).innerHTML = locationItemsHtmlArray.join('');
 
         // Get locationItems updated with marker references
-        this.locationItems = this.googleMap.renderItemLocationMarkers(locationItems);
+        this.locationItems = this.googleMap.renderItemLocationMarkers(
+            locationItems,
+        );
 
         // this.googleMap.removeMarker(this.locationItems[0].locationMarker)
         // delete this.locationItems[0].locationMarker;

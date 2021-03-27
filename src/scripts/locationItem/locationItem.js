@@ -3,15 +3,15 @@ import LocationItemApi from './locationItemApi';
 export default class LocationItem {
     constructor(item) {
         this.item = {
-            id: item.id,
-            title: item.title,
-            description: item.description,
-            openingHour: item.openingHour,
-            closingHour: item.closingHour,
-            geolocation: item.geolocation,
-            keywords: item.keywords,
-            favourite: item.favourite,
-            locationMarker: item.marker ?? null
+            id: item ? item.id : null,
+            title: item ? item.title : null,
+            description: item ? item.description : null,
+            openingHour: item ? item.openingHour : null,
+            closingHour: item ? item.closingHour : null,
+            geolocation: item ? item.geolocation : null,
+            keywords: item ? item.keywords : null,
+            favourite: item ? item.favourite : null,
+            locationMarker: item ? item.marker : null
         }
         this.locationItemApi = new LocationItemApi();
     }
@@ -24,15 +24,15 @@ export default class LocationItem {
         
     }
 
-    editItem = async (modifiedItem) => {
+    editLocationItem = async (modifiedItem) => {
         
     }
 
-    addItem = async (newItem) => {
+    addLocationItem = async (newItem) => {
         
     }
 
-    getItem = () => {
+    getLocationItem = () => {
         return this.item;
     }
 }
