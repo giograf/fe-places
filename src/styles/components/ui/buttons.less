@@ -40,6 +40,20 @@
     }
 }
 
+.button--favourite {
+    &[data-favourite="true"] {
+        color: @color-success;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    &:hover {
+        color: @color-success;
+    }
+}
+
 .button--close {
     background-color: transparent;
     width: 30px;
