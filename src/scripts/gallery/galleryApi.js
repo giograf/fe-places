@@ -33,7 +33,11 @@ export default class GalleryApi {
             ];
         }
 
-        if (openNow) {
+        if (openNow && onlyFavourites) {
+            downloadedItems = downloadedItems.filter(downloadedLocationItem => {
+                return downloadedLocationItem.favourite && this.isLocationItemOpenNow(downloadedLocationItem);
+            });
+        } else if (openNow) {
             downloadedItems = downloadedItems.filter(downloadedLocationItem => {
                 return this.isLocationItemOpenNow(downloadedLocationItem);
             });
@@ -41,11 +45,7 @@ export default class GalleryApi {
             downloadedItems = downloadedItems.filter(downloadedLocationItem => {
                 return downloadedLocationItem.favourite;
             });
-        } else if (openNow && onlyFavourites) {
-            downloadedItems = downloadedItems.filter(downloadedLocationItem => {
-                return downloadedLocationItem.favourite && this.isLocationItemOpenNow(downloadedLocationItem);
-            });
-        } 
+        }
 
         return downloadedItems;
     }
