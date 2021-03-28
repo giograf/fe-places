@@ -6,12 +6,13 @@
         <title>Places - Collect your favourite places!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta title="Places - Collect your favourite places!" />
-        <meta property="og:title" content="">
-        <meta property="og:type" content="">
-        <meta property="og:url" content="">
-        <meta property="og:image" content="">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+        <meta property="og:title" content="Places - Collect your favourite places">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://lamia-application.web.app/">
+        <meta property="og:image" content="og_image.png">
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%23db4b73%22></rect><path fill=%22%23fff%22 d=%22%22></path></svg>" />        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">   
         <link
             rel="stylesheet"
             href="https://cdn.iconmonstr.com/1.3.0/css/iconmonstr-iconic-font.min.css"
@@ -38,87 +39,43 @@
             </header>
             <aside class="places__gallery">
                 <div class="gallery__search">
-                    <input
-                        class="gallery__search-query"
-                        type="text"
-                        name="search"
-                        data-type="fulltext"
-                        placeholder="Serach..."
-                    />
-                    <button class="gallery__search-button">
-                      <i class="im im-magnifier"></i>
-                    </button>
-                    <button class="gallery__search-keywords-button">
-                        <i class="im im-tag"></i>
-                    </button>
+                    <div class="gallery__search-wrapper">
+                        <input
+                            class="gallery__search-query"
+                            type="text"
+                            name="search"
+                            data-type="fulltext"
+                            placeholder="Serach..."
+                        />
+                        <button class="gallery__search-button">
+                        <i class="im im-magnifier"></i>
+                        </button>
+                        <button class="gallery__search-keywords-button">
+                            <i class="im im-tag"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="gallery__buttons">
-                    <button class="gallery_search-only-open">Open Now</button>
+                    <button class="gallery_search-only-open">
+                        Open Now
+                    </button>
                     <button class="gallery_search-only-favourites">
                         Favourites
                     </button>
                 </div>
                 <div class="gallery__locations-list">
-                    <div
-                        class="gallery__location-item"
-                        data-location-id=""
-                        data-location-lon=""
-                        data-location-lat=""
-                    >
-                        <div class="gallery__location-item-name">
-                            Lamia Office
-                        </div>
-                        <div class="gallery__location-item-description">
-                            My future workplace! ^^
-                        </div>
-                        <div class="gallery__location-item-footer">
-                            <div class="gallery__location-item-hours">
-                                08:00-18:00
-                            </div>
-                            <div
-                                class="gallery__location-item-favourite"
-                                data-favourite="true"
-                            >
-                                <i class="im im-star"></i>
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </aside>
 
             <aside class="location-item-full-view">
-                <button class="location-item-full-view__close"><i class="im im-x-mark"></i></button>
-                <div class="location-item-full-view__name">
-                    Lamia Office
-                </div>
-                <div class="location-item-full-view__description">
-                    Lamia on digitaalisen kasvun kumppani. Olemme liiketoiminnan kehittäjiä, digitaalisen kaupankäynnin asiantuntijoita ja teknologioiden edelläkävijöitä. Asiakkaamme luottavat meihin, koska tuotamme kestävää ja mitattavaa arvoa designin, ohjelmistokehityksen, pilven ja datan keinoin.
-                </div>
-                <div class="location-item-full-view__footer">
-                    <div class="location-item-full-view__hours">    
-                        <div class="location-item-full-view__opening-hour">08:00</div>
-                        <div class="location-item-full-view__hour-separator">-</div>
-                        <div class="location-item-full-view__closing-hour">18:00</div>
-                    </div>
-                    <div class="location-item-full-view__keywords">
-                        <div class="location-item-full-view__keyword">Work</div>
-                    </div>
-                    <div
-                        class="location-item-full-view__favourite"
-                        data-favourite="true"
-                    >
-                        <i class="im im-star"></i>
-                    </div>
-                </div>
+                <button class="location-item-full-view__close" type="button"><i class="im im-x-mark"></i></button>
+                <div class="location-item-full-view__wrapper"></div>
             </aside>
             <aside class="location-item-submission-view">
                 <button class="location-item-submission-view__close"><i class="im im-x-mark"></i></button>
-                <h2>Add new place:</h2>
-                <input type="text" name="name" placeholder="Name" class="" />
-                <textarea name="description" rows="5" placeholder="Description" class=""></textarea>
-                <input type="time" name="opening-hour" placeholder="Opening Hour" class="" />
-                <input type="time" name="closing-hour" placeholder="Closing Hour" class="" />
-                <button class="button__location-item-submission-view__submit">Add</div>
+                <div class="location-item-submission-view__wrapper">
+                </div>
             </aside>
             <aside class="location-item-edit-view">                
                 <button class="location-item-edit-view__close"><i class="im im-x-mark"></i></button>

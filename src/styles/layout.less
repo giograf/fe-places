@@ -3,15 +3,13 @@
 .places__menu {
     height: 52px;
     background-color: @background-color-primary;
-    background-image: @background-image-primary;
 }
 
 .places__gallery,
 .location-item-full-view,
 .location-item-submission-view,
 .location-item-edit-view {
-    background-color: @background-color-primary;
-    background-image: @background-image-primary;
+    background-color: @color-boring;
     z-index: @z-index-gallery;
 }
 
@@ -20,7 +18,7 @@
     height: calc(100vh - 52px);
 }
 
-.location-item-full-view__-open {
+.location-item-full-view--open {
     z-index: @z-index-full-item-view;
 }
 
@@ -35,12 +33,12 @@
     display: block;
     position: absolute;
     height: calc(100vh - 52px);
-    transform: translateX(-280px);
+    transform: translateX(@sidebar-width-mobile-minus);
     transition: all 150ms ease-out;
     padding: 10px;
-    width: 280px;
+    width: @sidebar-width-mobile;
 
-    &.location-item-full-view__-open,
+    &.location-item-full-view--open,
     &.location-item-submission-view--open,
     &.location-item-edit-view--open {
         position: absolute;
@@ -54,15 +52,15 @@
         display: block;
         position: absolute;
         height: calc(100vh - 52px);
-        transform: translateX(-280px);
+        transform: translateX(@sidebar-width-mobile-minus);
         transition: all 150ms ease-out;
-        width: 280px;
+        width: @sidebar-width-mobile;
         //background: #fefefe;
 
         &.places__gallery--open {
             position: absolute;
             transform: translateX(0);
-            width: 280px;
+            width: @sidebar-width-mobile;
 
             ~ .places__map {
                 transform: translateX(280px);
@@ -74,9 +72,9 @@
     .location-item-full-view,
     .location-item-submission-view,
     .location-item-edit-view {
-        width: 280px;
+        width: @sidebar-width-mobile;
 
-        &.location-item-full-view__-open,
+        &.location-item-full-view--open,
         &.location-item-submission-view--open,
         &.location-item-edit-view--open {
             ~ .places__map {
@@ -96,7 +94,7 @@
     .places {
         height: 100%;
         display: grid;
-        grid-template-columns: 40vw repeat(3, 1fr);
+        grid-template-columns: @sidebar-width-tablet repeat(3, 1fr);
         grid-template-rows: 70px repeat(2, 100%);
         flex-wrap: wrap;
         grid-template-areas:
@@ -126,10 +124,10 @@
     .location-item-edit-view {
         top: 70px;
         height: calc(100vh - 70px);
-        transform: translateX(-40vw);
-        width: 40vw;
+        transform: translateX(@sidebar-width-tablet-minus);
+        width: @sidebar-width-tablet;
 
-        &.location-item-full-view__-open,
+        &.location-item-full-view--open,
         &.location-item-submission-view--open,
         &.location-item-edit-view--open {
             transform: translateX(0);
@@ -140,7 +138,7 @@
 /* Desktops */
 @media screen and (min-width: @breakpoint-desktop) {
     .places {
-        grid-template-columns: 29vw repeat(3, 1fr);
+        grid-template-columns: @sidebar-width-desktop repeat(3, 1fr);
     }
 
     .location-item-full-view,
@@ -148,10 +146,10 @@
     .location-item-edit-view {
         top: 70px;
         height: calc(100vh - 70px);
-        width: 29vw;
-        transform: translateX(-29vw);
+        width: @sidebar-width-desktop;
+        transform: translateX(@sidebar-width-desktop-minus);
 
-        &.location-item-full-view__-open,
+        &.location-item-full-view--open,
         &.location-item-submission-view--open,
         &.location-item-edit-view--open {
             transform: translateX(0);

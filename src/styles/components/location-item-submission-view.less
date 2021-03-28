@@ -1,24 +1,40 @@
 @import '../globals.less';
+@import '../components/ui/buttons.less';
 
 .location-item-submission-view {
-    input, textarea {
-        width: 220px;
+    input, textarea { 
+        max-width: 100%;
+        min-width: 100%;
         margin-bottom: 16px;
     }
 
     .button__location-item-submission-view__submit {
-        width: 100%;
-        padding: 16px;
-        font-size: @font-size-larger;
-        border: 1px solid black;
-        text-align: center;
+        .button--main();
+    }
+
+    .location-item-submission-view__footer {
+        display: flex;    
+        max-width: 100%;
+        justify-content: space-between;
+
+        input {
+            min-width: auto;
+        }
+
+        .location-item-submission-view__favourite {
+            .button--favourite();
+        }
+    }
+
+    .location-item-submission-view__submit {
+        .button--main();
     }
 }
 
-@media screen and (min-width: @breakpoint-tablet) {
-    .location-item-submission-view {
-        input, textarea {
-            width: 80%;
-        }
-    }
+.places__add-location {
+    .button--add();
+}
+
+.location-item-submission-view__close {
+    .button--close()
 }

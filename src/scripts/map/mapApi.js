@@ -16,6 +16,7 @@
      */
     constructor(gApiKey) {
       this.apiKey = gApiKey;
+      this.mapId = "cacfe61a9beaf18c";
   
       if (!window._GoogleMapsApi) {
         this.callbackName = '_GoogleMapsApi.mapLoaded';
@@ -39,7 +40,7 @@
   
           if (typeof window.google === 'undefined') {
             const script = document.createElement('script');
-            script.src = `//maps.googleapis.com/maps/api/js?key=${this.apiKey}&callback=${this.callbackName}`;
+            script.src = `//maps.googleapis.com/maps/api/js?key=${this.apiKey}&map_ids=${this.mapId}&callback=${this.callbackName}`;
             script.async = true;
             document.body.append(script);
   

@@ -1,41 +1,38 @@
 import LocationItemApi from './locationItemApi';
 
 export default class LocationItem {
-    constructor() {
-        item = {
-            id: null,
-            title: "",
-            name: "",
-            openingHour: "",
-            closingHour: "",
-            lat: null,
-            lon: null,
-            keywords: []
+    constructor(item) {
+        this.item = {
+            id: item ? item.id : null,
+            title: item ? item.title : null,
+            description: item ? item.description : null,
+            openingHour: item ? item.openingHour : null,
+            closingHour: item ? item.closingHour : null,
+            geolocation: item ? item.geolocation : null,
+            keywords: item ? item.keywords : null,
+            favourite: item ? item.favourite : null,
+            locationMarker: item ? item.marker : null
         }
-        locationItemApi = new LocationItemApi();
+        this.locationItemApi = new LocationItemApi();
     }
 
-    removeItem = () => {
-
+    removeItem = async () => {
+        this.locationItemApi.removeItem(this.item)
     }
 
-    addKeyword = (keyword) => {
-        
+    removeKeyword = async (keyword) => {
+        this.locationItemApi.removeKeyword(this.item, keyword)
     }
 
-    removeKeyword = (keyword) => {
-        
+    editLocationItem = async (modifiedItem) => {
+        this.locationItemApi.editItem(this.item, modifiedItem)
     }
 
-    editItem = (title, name, openingHour, closingHour, lat, lon) => {
-        
+    addLocationItem = async (newItem) => {
+        this.locationItemApi.addItem(newItem)
     }
 
-    setItem = (item) => {
-        
-    }
-
-    getItem = () => {
+    getLocationItem = () => {
         return this.item;
     }
 }
