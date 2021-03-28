@@ -13,9 +13,16 @@ export default class Navigation {
 
     openMobileMenuHandler = () => {
         this.mobileMenuContainerToggle.addEventListener('click', (event) => {
-            this.mobileMenuOpen ? 
-                this.mobileMenuContainer.classList.remove('places__gallery--open'):
-                this.mobileMenuContainer.classList.add('places__gallery--open');
+            if (this.mobileMenuOpen) {
+                const locationItemFullViewContainer = document.querySelector(".location-item-full-view");
+                const locationItemSubmissionContainerOpener = document.querySelector(".location-item-submission-view");
+
+                locationItemFullViewContainer.classList.remove('location-item-full-view--open')
+                locationItemSubmissionContainerOpener.classList.remove('location-item-submission-view--open')
+                this.mobileMenuContainer.classList.remove('places__gallery--open')
+            } else {
+                this.mobileMenuContainer.classList.add('places__gallery--open')
+            }
             this.mobileMenuOpen = !this.mobileMenuOpen;
         });
     }
