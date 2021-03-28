@@ -16,6 +16,12 @@ export default class LocationItemFullView extends LocationItem {
             })
             .join('');
 
+        var closingHourString = locationItem.closingHour.hour < 10 ? "0" + locationItem.closingHour.hour : locationItem.closingHour.hour;
+        var closingMinuteString = locationItem.closingHour.minute < 10 ? "0" + locationItem.closingHour.minute : locationItem.closingHour.minute;
+        var openingHourString = locationItem.openingHour.hour < 10 ? "0" + locationItem.openingHour.hour : locationItem.openingHour.hour;             
+        var openingMinuteString = locationItem.openingHour.minute < 10 ? "0" + locationItem.openingHour.minute : locationItem.openingHour.minute;
+                
+
         const html = `  <div class="location-item-full-view__name">
                             ${locationItem.title}
                         </div>
@@ -24,9 +30,13 @@ export default class LocationItemFullView extends LocationItem {
                         </div>
                         <div class="location-item-full-view__footer">
                             <div class="location-item-full-view__hours">    
-                                <div class="location-item-full-view__opening-hour">${locationItem.openingHour}</div>
+                                <div class="location-item-full-view__opening-hour">
+                                    ${openingHourString}:${openingMinuteString}
+                                </div>
                                 <div class="location-item-full-view__hour-separator">-</div>
-                                <div class="location-item-full-view__closing-hour">${locationItem.closingHour}</div>
+                                <div class="location-item-full-view__closing-hour">
+                                    ${closingHourString}:${closingMinuteString}
+                                </div>
                             </div>
                             <div class="location-item-full-view__keywords">
                                 ${itemKewordsHtml}

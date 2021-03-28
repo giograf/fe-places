@@ -17,19 +17,19 @@ export default class LocationItem {
     }
 
     removeItem = async () => {
-
+        this.locationItemApi.removeItem(this.item)
     }
 
     removeKeyword = async (keyword) => {
-        
+        this.locationItemApi.removeKeyword(this.item, keyword)
     }
 
     editLocationItem = async (modifiedItem) => {
-        
+        this.locationItemApi.editItem(this.item, modifiedItem)
     }
 
     addLocationItem = async (newItem) => {
-        
+        this.locationItemApi.addItem(newItem)
     }
 
     getLocationItem = () => {

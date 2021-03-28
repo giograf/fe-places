@@ -45,6 +45,10 @@ export default class Gallery {
                     this.locationItems,
                 );
 
+                this.onlyFavouritesSelected ?
+                    event.target.classList.add("gallery_search-only-favourites--selected") :
+                    event.target.classList.remove("gallery_search-only-favourites--selected");
+
                 this.locationItemsToHtml(this.locationItems); // TODO: Add map marker update
                 // TODO: Add map marker update
                 this.locationItemClickHandler();
@@ -61,6 +65,10 @@ export default class Gallery {
                     this.onlyFavouritesSelected,
                     this.locationItems,
                 );
+
+                this.openNowSelected ?
+                    event.target.classList.add("gallery_search-only-open--selected") :
+                    event.target.classList.remove("gallery_search-only-open--selected");
 
                 this.locationItemsToHtml(this.locationItems);
                 // TODO: Add map marker update
@@ -103,11 +111,13 @@ export default class Gallery {
             });
     };
 
-    locationItemsToHtml = (locationItems) => {
-        // Prepare HTML for Location Items
-        console.log(this);
+    locationItemsToHtml = (locationItems) => {        
         const locationItemsHtmlArray = this.locationItems.map(
             (locationItem) => {
+                var closingHourString = locationItem.closingHour.hour < 10 ? "0" + locationItem.closingHour.hour : locationItem.closingHour.hour;
+                var closingMinuteString = locationItem.closingHour.minute < 10 ? "0" + locationItem.closingHour.minute : locationItem.closingHour.minute;
+                var openingHourString = locationItem.openingHour.hour < 10 ? "0" + locationItem.openingHour.hour : locationItem.openingHour.hour;
+                var openingMinuteString = locationItem.openingHour.minute < 10 ? "0" + locationItem.openingHour.minute : locationItem.openingHour.minute;
                 // TODO: sanitize all HTML in the app
                 return `<div
                             class="gallery__location-item"
@@ -122,7 +132,8 @@ export default class Gallery {
                         </div>
                         <div class="gallery__location-item-footer">
                             <div class="gallery__location-item-hours">
-                                ${locationItem.openingHour}-${locationItem.closingHour}
+                                ${openingHourString}:${openingMinuteString} - 
+                                ${closingHourString}:${closingMinuteString}
                             </div>
                             <div
                                 class="gallery__location-item-favourite"
