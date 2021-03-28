@@ -10,11 +10,11 @@ export default class LocationItemFullView extends LocationItem {
     }
 
     locationItemFullViewToHtml = (locationItem) => {
-        const itemKewordsHtml = locationItem.keywords
-            .map((keyword) => {
+        const itemKewordsHtml = locationItem.keywords?.length > 0 ?
+            locationItem.keywords.map((keyword) => {
                 return `<div class="location-item-full-view__keyword">${keyword}</div>`;
             })
-            .join('');
+            .join('') : "";
 
         var closingHourString = locationItem.closingHour.hour < 10 ? "0" + locationItem.closingHour.hour : locationItem.closingHour.hour;
         var closingMinuteString = locationItem.closingHour.minute < 10 ? "0" + locationItem.closingHour.minute : locationItem.closingHour.minute;

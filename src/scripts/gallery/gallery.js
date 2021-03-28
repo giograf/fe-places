@@ -16,20 +16,22 @@ export default class Gallery {
         this.locationItemFullView = null;
         this.googleMap = googleMap;
         this.navigation = navigation;
-        this.locationItems = this.galleryApi.getLocationItems();
+        this.locationItems = this.getLocationItems();
+        console.log(this.locationItems)
 
         // Render the initial set of location items
-        this.locationItemsToHtml(this.locationItems);
         this.locationItemClickHandler();
         this.onlyFavouritesButtonClickedHandler();
         this.openNowButtonClickedHandler();
     }
 
-    getLocationItems = (openNow, onlyFavourites) => {
-        this.locationItems = this.galleryApi.getLocationItems(
+    getLocationItems = async (openNow, onlyFavourites) => {
+        this.locationItems = await this.galleryApi.getLocationItems(
             openNow,
             onlyFavourites,
         );
+
+        this.locationItemsToHtml(this.locationItems);
         return this.locationItems;
     };
 
@@ -37,9 +39,9 @@ export default class Gallery {
         // TODO: add event listener
         document
             .querySelector('.gallery_search-only-favourites')
-            .addEventListener('click', (event) => {
+            .addEventListener('click', async (event) => {
                 this.onlyFavouritesSelected = !this.onlyFavouritesSelected;
-                this.locationItems = this.getLocationItems(
+                this.locationItems = await this.getLocationItems(
                     this.openNowSelected,
                     this.onlyFavouritesSelected,
                     this.locationItems,
@@ -51,16 +53,15 @@ export default class Gallery {
 
                 this.locationItemsToHtml(this.locationItems); // TODO: Add map marker update
                 // TODO: Add map marker update
-                this.locationItemClickHandler();
             });
     };
 
-    openNowButtonClickedHandler = () => {
+    openNowButtonClickedHandler = async () => {
         document
             .querySelector('.gallery_search-only-open')
-            .addEventListener('click', (event) => {
+            .addEventListener('click', async (event) => {
                 this.openNowSelected = !this.openNowSelected;
-                this.locationItems = this.getLocationItems(
+                this.locationItems = await this.getLocationItems(
                     this.openNowSelected,
                     this.onlyFavouritesSelected,
                     this.locationItems,
@@ -72,7 +73,6 @@ export default class Gallery {
 
                 this.locationItemsToHtml(this.locationItems);
                 // TODO: Add map marker update
-                this.locationItemClickHandler();
             });
     };
 
@@ -155,6 +155,9 @@ export default class Gallery {
         this.locationItems = this.googleMap.renderItemLocationMarkers(
             locationItems,
         );
+
+        // Handlers
+        this.locationItemClickHandler();
 
         // this.googleMap.removeMarker(this.locationItems[0].locationMarker)
         // delete this.locationItems[0].locationMarker;

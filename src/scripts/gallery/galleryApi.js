@@ -1,36 +1,36 @@
 import LocationItem from '../locationItem/locationItem';
 export default class GalleryApi {
-    getLocationItems = (openNow, onlyFavourites, downloadedItems) => {
+    getLocationItems = async (openNow, onlyFavourites, downloadedItems) => {
         // TODO: Connect to Firestore (Mock Data) 
         if (downloadedItems) {
             
         } else {
-            downloadedItems = [
-                new LocationItem(
+            let downloadedItemsRaw = await fetch('https://us-central1-lamia-application.cloudfunctions.net/getAllPlaces', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "localhost",
+                    "Access-Control-Allow-Headers": "Access-Control-Allow-Headers" +
+                    "Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+                }
+            });
+
+            downloadedItemsRaw = await downloadedItemsRaw.json();
+            downloadedItemsRaw = downloadedItemsRaw.result;
+
+            downloadedItems = downloadedItemsRaw.map(downloadedItemRaw => {
+                return new LocationItem(
                     {
-                        id: "23rfasd32apF32f",
-                        title: "Lamia Office",
-                        description: "Lamia on digitaalisen kasvun kumppani. Olemme liiketoiminnan kehittäjiä, digitaalisen kaupankäynnin asiantuntijoita ja teknologioiden edelläkävijöitä. Asiakkaamme luottavat meihin, koska tuotamme kestävää ja mitattavaa arvoa designin, ohjelmistokehityksen, pilven ja datan keinoin.",
-                        openingHour: {hour: 9, minute: 0},
-                        closingHour: {hour: 18, minute: 0},
-                        geolocation: {lng: 24.928154339125673, lat: 60.17081237559105},
-                        keywords: ["web", "it", "workplace"],
-                        favourite: true
-                    }
-                ).getLocationItem(),
-                new LocationItem(
-                    {
-                        id: "asdssd32r234",
-                        title: "Polar Electro Oy",
-                        description: "Polar Electro Oy (globally known as Polar) is a manufacturer of sports training computers, particularly known for developing the world's first wireless heart rate monitor. The company is based in Kempele, Finland and was founded in 1977.",
-                        openingHour: {hour: 8, minute: 0},
-                        closingHour: {hour: 17, minute: 0},
-                        geolocation: {lng: 25.447395680862304, lat: 64.94498659771413},
-                        keywords: ["sports", "electronics", "it", "workplace"],
-                        favourite: false
+                        id: downloadedItemRaw.id,
+                        title: downloadedItemRaw.title,
+                        description: downloadedItemRaw.description,
+                        openingHour: downloadedItemRaw.openingHour,
+                        closingHour: downloadedItemRaw.closingHour,
+                        geolocation: {lng: downloadedItemRaw.geopoint._longitude, lat: downloadedItemRaw.geopoint._latitude},
+                        keywords: downloadedItemRaw.keywords,
+                        favourite: downloadedItemRaw.favourite
                     }
                 ).getLocationItem()
-            ];
+            })
         }
 
         if (openNow && onlyFavourites) {

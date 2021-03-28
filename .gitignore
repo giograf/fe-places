@@ -114,3 +114,4 @@ node_modules
 # Google Cloud
 keys
 .runtimeconfig.json
+.firebase/
