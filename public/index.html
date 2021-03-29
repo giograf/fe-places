@@ -6,10 +6,13 @@
         <title>Places - Collect your favourite places!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta title="Places - Collect your favourite places!" />
+        <meta name="description" content="Places is one of best apps for collecting places of attaction using map!" />
         <meta property="og:title" content="Places - Collect your favourite places">
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://lamia-application.web.app/">
         <meta property="og:image" content="og_image.png">
+        <link rel="preconnect" href="https://us-central1-lamia-application.cloudfunctions.net">
+        <link rel="preconnect" href="https://cdn.iconmonstr.com">
         <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%23db4b73%22></rect><path fill=%22%23fff%22 d=%22%22></path></svg>" />        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">   
@@ -47,10 +50,10 @@
                             data-type="fulltext"
                             placeholder="Serach..."
                         />
-                        <button class="gallery__search-button">
-                        <i class="im im-magnifier"></i>
+                        <button class="gallery__search-button" aria-label="Search">
+                            <i class="im im-magnifier"></i>
                         </button>
-                        <button class="gallery__search-keywords-button">
+                        <button class="gallery__search-keywords-button" aria-label="Search by keywords">
                             <i class="im im-tag"></i>
                         </button>
                     </div>
@@ -69,20 +72,20 @@
             </aside>
 
             <aside class="location-item-full-view">
-                <button class="location-item-full-view__close" type="button"><i class="im im-x-mark"></i></button>
+                <button class="location-item-full-view__close" type="button" aria-label="Close place view"><i class="im im-x-mark"></i></button>
                 <div class="location-item-full-view__wrapper"></div>
             </aside>
             <aside class="location-item-submission-view">
-                <button class="location-item-submission-view__close"><i class="im im-x-mark"></i></button>
+                <button class="location-item-submission-view__close" aria-label="Close place submission view"><i class="im im-x-mark"></i></button>
                 <div class="location-item-submission-view__wrapper">
                 </div>
             </aside>
             <aside class="location-item-edit-view">                
-                <button class="location-item-edit-view__close"><i class="im im-x-mark"></i></button>
-                <h2>Edit:</h2>
+                <button class="location-item-edit-view__close" aria-label="Close place edit view"><i class="im im-x-mark"></i></button>
+                <div class="location-item-edit-view__wrapper"></div>
             </aside>
             <div id="map" class="places__map"></div>
-            <button class="places__add-location">
+            <button class="places__add-location" aria-label="Add Location">
                 <i class="im im-plus"></i>
             </button>
         </main>
