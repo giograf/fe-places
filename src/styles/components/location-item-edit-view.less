@@ -1,6 +1,43 @@
 @import '../globals.less';
 @import '../components/ui/buttons.less';
 
-.location-item-edit-view__close{
-    .button--close()
+.location-item-edit-view {
+    input, textarea { 
+        .input-form();
+    }
+
+    .location-item-edit-view__submit {
+        .button--main();
+    }
+
+    .location-item-edit-view__footer {
+        display: flex;    
+        max-width: 100%;
+        justify-content: space-between;
+
+        input {
+            min-width: auto;
+        }
+
+        .location-item-edit-view__favourite {
+            .button--favourite();
+            position: relative;
+            bottom: 7px;
+        }
+    }
+
+    .location-item-edit-view__submit {
+        .button--main();
+        
+        margin-bottom: 8px;
+    }
+
+    .location-item-edit-view__close{
+        .button--close();
+    }
+    
+    .location-item-edit-view__delete {
+        .button--delete();
+    }
+    
 }

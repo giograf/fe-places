@@ -1,8 +1,11 @@
 import LocationItem from './locationItem';
+import LocationItemEditView from './locationItemEditView'
 
 export default class LocationItemFullView extends LocationItem {
-    constructor(item) {
+    constructor(item, gallery) {
         super(item);
+
+        this.gallery = gallery;
 
         this.locationItemFullViewToHtml(this.item);
         this.locationItemFullViewCloseHandler();
@@ -16,11 +19,15 @@ export default class LocationItemFullView extends LocationItem {
             })
             .join('') : "";
 
-        var closingHourString = locationItem.closingHour.hour < 10 ? "0" + locationItem.closingHour.hour : locationItem.closingHour.hour;
-        var closingMinuteString = locationItem.closingHour.minute < 10 ? "0" + locationItem.closingHour.minute : locationItem.closingHour.minute;
-        var openingHourString = locationItem.openingHour.hour < 10 ? "0" + locationItem.openingHour.hour : locationItem.openingHour.hour;             
-        var openingMinuteString = locationItem.openingHour.minute < 10 ? "0" + locationItem.openingHour.minute : locationItem.openingHour.minute;
-                
+        const closingHourString = locationItem.closingHour?.hour < 10 ? "0" + locationItem.closingHour?.hour : locationItem.closingHour?.hour;
+        const closingMinuteString = locationItem.closingHour?.minute < 10 ? "0" + locationItem.closingHour?.minute : locationItem.closingHour?.minute;
+        const openingHourString = locationItem.openingHour?.hour < 10 ? "0" + locationItem.openingHour?.hour : locationItem.openingHour?.hour;
+        const openingMinuteString = locationItem.openingHour?.minute < 10 ? "0" + locationItem.openingHour?.minute : locationItem.openingHour?.minute;
+
+        const openingHoursString = openingHourString && openingMinuteString ? openingHourString + ":" + openingMinuteString : "";
+        const closingHoursString = closingHourString && closingMinuteString ? closingHourString + ":" + closingMinuteString : "";
+
+        const openTimePeriodString = openingHoursString + " - " + closingHoursString;
 
         const html = `  <div class="location-item-full-view__name">
                             ${locationItem.title}
@@ -31,34 +38,38 @@ export default class LocationItemFullView extends LocationItem {
                         <div class="location-item-full-view__footer">
                             <div class="location-item-full-view__hours">    
                                 <div class="location-item-full-view__opening-hour">
-                                    ${openingHourString}:${openingMinuteString}
+                                    ${openingHoursString}
                                 </div>
                                 <div class="location-item-full-view__hour-separator">-</div>
                                 <div class="location-item-full-view__closing-hour">
-                                    ${closingHourString}:${closingMinuteString}
+                                    ${closingHoursString}
                                 </div>
                             </div>
                             <div class="location-item-full-view__keywords">
                                 ${itemKewordsHtml}
                             </div>
-                            <div
+                            <button
+                                aria-label="${locationItem.favourite ? "Remove from favourites" : "Add to favourites"}"
                                 class="location-item-full-view__favourite"
                                 data-favourite="${locationItem.favourite}"
                             >
                                 <i class="im im-star"></i>
-                            </div>
+                            </button>
                         </div>
-                        <button class="button__location-item-full-view__submit">Edit</button>`;
-
-        //this.locationItemEditButtonClickHandler();
+                        <button class="location-item-full-view__submit">Edit</button>`;
 
         document.querySelector(
             '.location-item-full-view__wrapper',
         ).innerHTML = html;
+
+        this.locationItemEditButtonClickHandler();
     };
 
     locationItemEditButtonClickHandler = () => {
-        this.navigation.openLocationItemEditView();
+        document.querySelector(".location-item-full-view__submit")
+            .addEventListener('click', (event) => {
+                let editView = new LocationItemEditView(this.item, this.gallery);
+        });
     };
 
     openLocationItemFullView = () => {

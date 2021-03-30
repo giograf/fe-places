@@ -53,10 +53,16 @@ export default class GoogleMap {
 
   renderItemLocationMarkers(itemLocations) {
     return itemLocations.map(itemLocation => {
-      itemLocation = this.renderItemLocationMarker(itemLocation);
+      if (itemLocation.geolocation?.lat && itemLocation.geolocation?.lng) {
+        itemLocation = this.renderItemLocationMarker(itemLocation);
+      }
 
       return itemLocation;
     })
+  }
+
+  focusOnLocationItem(locationItem) {
+    this.map.setCenter(locationItem.locationMarker.getPosition())
   }
 
   getInitialGeoLocation = async () => {

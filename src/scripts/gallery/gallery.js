@@ -3,7 +3,6 @@ import LocationItem from '../locationItem/locationItem';
 import Navigation from '../navigation/navigation';
 import LocationItemFullView from '../locationItem/locationItemFullView';
 import LocationItemSubmissionView from '../locationItem/locationItemSubmissionView';
-import LocationItemEditView from '../locationItem/locationItemEditView';
 
 export default class Gallery {
     constructor(googleMap, navigation) {
@@ -12,12 +11,10 @@ export default class Gallery {
         this.selectedLocationItem = null;
         this.galleryApi = new GalleryApi();
         this.LocationItemSubmissionView = new LocationItemSubmissionView(this);
-        this.LocationItemEditView = new LocationItemEditView(this);
         this.locationItemFullView = null;
         this.googleMap = googleMap;
         this.navigation = navigation;
         this.locationItems = this.getLocationItems();
-        console.log(this.locationItems)
 
         // Render the initial set of location items
         this.locationItemClickHandler();
@@ -51,7 +48,7 @@ export default class Gallery {
                     event.target.classList.add("gallery_search-only-favourites--selected") :
                     event.target.classList.remove("gallery_search-only-favourites--selected");
 
-                this.locationItemsToHtml(this.locationItems); // TODO: Add map marker update
+                this.locationItemsToHtml(this.locationItems);
                 // TODO: Add map marker update
             });
     };
@@ -106,7 +103,8 @@ export default class Gallery {
                         },
                     );
 
-                    this.locationItemFullView = new LocationItemFullView(this.selectedLocationItem);
+                    this.locationItemFullView = new LocationItemFullView(this.selectedLocationItem, this);
+                    this.selectedLocationItem.locationMarker && this.googleMap.focusOnLocationItem(this.selectedLocationItem);
                 });
             });
     };
@@ -114,10 +112,15 @@ export default class Gallery {
     locationItemsToHtml = (locationItems) => {        
         const locationItemsHtmlArray = this.locationItems.map(
             (locationItem) => {
-                var closingHourString = locationItem.closingHour.hour < 10 ? "0" + locationItem.closingHour.hour : locationItem.closingHour.hour;
-                var closingMinuteString = locationItem.closingHour.minute < 10 ? "0" + locationItem.closingHour.minute : locationItem.closingHour.minute;
-                var openingHourString = locationItem.openingHour.hour < 10 ? "0" + locationItem.openingHour.hour : locationItem.openingHour.hour;
-                var openingMinuteString = locationItem.openingHour.minute < 10 ? "0" + locationItem.openingHour.minute : locationItem.openingHour.minute;
+                const closingHourString = locationItem.closingHour?.hour < 10 ? "0" + locationItem.closingHour?.hour : locationItem.closingHour?.hour;
+                const closingMinuteString = locationItem.closingHour?.minute < 10 ? "0" + locationItem.closingHour?.minute : locationItem.closingHour?.minute;
+                const openingHourString = locationItem.openingHour?.hour < 10 ? "0" + locationItem.openingHour?.hour : locationItem.openingHour?.hour;
+                const openingMinuteString = locationItem.openingHour?.minute < 10 ? "0" + locationItem.openingHour?.minute : locationItem.openingHour?.minute;
+
+                const openingHoursString = openingHourString && openingMinuteString ? openingHourString + ":" + openingMinuteString : "";
+                const closingHoursString = closingHourString && closingMinuteString ? closingHourString + ":" + closingMinuteString : "";
+
+                const openTimePeriodString = openingHoursString + " - " + closingHoursString;
                 // TODO: sanitize all HTML in the app
                 return `<div
                             class="gallery__location-item"
@@ -132,15 +135,15 @@ export default class Gallery {
                         </div>
                         <div class="gallery__location-item-footer">
                             <div class="gallery__location-item-hours">
-                                ${openingHourString}:${openingMinuteString} - 
-                                ${closingHourString}:${closingMinuteString}
+                                ${openTimePeriodString}
                             </div>
-                            <div
+                            <button
+                                aria-label="${locationItem.favourite ? "Remove from favourites" : "Add to favourites"}"
                                 class="gallery__location-item-favourite"
                                 data-favourite="${locationItem.favourite}"
                             >
                                 <i class="im im-star"></i>
-                            </div>
+                            </button>
                         </div>
                     </div>`;
             },
@@ -155,6 +158,14 @@ export default class Gallery {
         this.locationItems = this.googleMap.renderItemLocationMarkers(
             locationItems,
         );
+
+        this.locationItems.forEach((locationItem) => {
+            locationItem.locationMarker && locationItem.locationMarker.addListener("click", () => {
+                this.selectedLocationItem = locationItem;
+                this.locationItemFullView = new LocationItemFullView(this.selectedLocationItem, this);
+                this.googleMap.focusOnLocationItem(this.selectedLocationItem);
+            });
+        })
 
         // Handlers
         this.locationItemClickHandler();

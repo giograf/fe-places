@@ -3,12 +3,10 @@
 
 .location-item-submission-view {
     input, textarea { 
-        max-width: 100%;
-        min-width: 100%;
-        margin-bottom: 16px;
+        .input-form();
     }
 
-    .button__location-item-submission-view__submit {
+    .location-item-submission-view__submit {
         .button--main();
     }
 
@@ -23,6 +21,8 @@
 
         .location-item-submission-view__favourite {
             .button--favourite();
+            position: relative;
+            bottom: 7px;
         }
     }
 
@@ -36,5 +36,5 @@
 }
 
 .location-item-submission-view__close {
-    .button--close()
+    .button--close();
 }

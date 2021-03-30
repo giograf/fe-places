@@ -8,7 +8,7 @@ export default class GalleryApi {
             let downloadedItemsRaw = await fetch('https://us-central1-lamia-application.cloudfunctions.net/getAllPlaces', {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "localhost",
+                    "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Headers": "Access-Control-Allow-Headers" +
                     "Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
                 }
@@ -25,7 +25,7 @@ export default class GalleryApi {
                         description: downloadedItemRaw.description,
                         openingHour: downloadedItemRaw.openingHour,
                         closingHour: downloadedItemRaw.closingHour,
-                        geolocation: {lng: downloadedItemRaw.geopoint._longitude, lat: downloadedItemRaw.geopoint._latitude},
+                        geolocation: {lng: downloadedItemRaw.geopoint?._longitude, lat: downloadedItemRaw.geopoint?._latitude},
                         keywords: downloadedItemRaw.keywords,
                         favourite: downloadedItemRaw.favourite
                     }
@@ -53,12 +53,17 @@ export default class GalleryApi {
     isLocationItemOpenNow = (downloadedItem) => {
         const currentDate = new Date();
 
-        const openingDate = new Date();
-        openingDate.setHours(downloadedItem.openingHour.hour);
-        openingDate.setMinutes(downloadedItem.openingHour.minute);
-        const closingDate = new Date();
-        closingDate.setHours(downloadedItem.closingHour.hour);
-        closingDate.setMinutes(downloadedItem.closingHour.minute);
+        if (downloadedItem.openingHour) {
+            const openingDate = new Date();
+            openingDate.setHours(downloadedItem.openingHour.hour);
+            openingDate.setMinutes(downloadedItem.openingHour.minute);
+        }
+
+        if (downloadedItem.closingHour) {
+            const closingDate = new Date();
+            closingDate.setHours(downloadedItem.closingHour.hour);
+            closingDate.setMinutes(downloadedItem.closingHour.minute);
+        }
 
         if (currentDate.getTime() > openingDate.getTime() && currentDate.getTime() < closingDate.getTime()) {
             return true;

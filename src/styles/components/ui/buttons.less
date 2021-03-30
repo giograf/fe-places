@@ -40,7 +40,28 @@
     }
 }
 
+.button--delete {
+    width: 100%;
+    padding: 8px;
+    font-size: @font-size-small;
+    line-height: @font-size-heading-line-height;
+    border: 0;
+    border-radius: 2px;
+    text-align: center;
+    background: @color-accent;
+    color: white;
+
+    &:hover, &:active, &:focus {
+        outline: 0;
+        padding: 7px;
+        border: 1px solid @color-warning;
+    }
+}
+
 .button--favourite {
+    border: 0;
+    outline: 0;
+
     &[data-favourite="true"] {
         color: @color-success;
 
