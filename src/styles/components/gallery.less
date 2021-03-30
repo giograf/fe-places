@@ -36,6 +36,17 @@
             width: 42px;
             height: 42px;
 
+            &:focus, &:active {
+                border: 0;
+                outline: none;
+            }
+
+            &.gallery__search-keywords-button--clicked {
+                i {
+                    color: @color-success;
+                }
+            }
+
             i {
                 color: @color-accent;
                 font-size: 17px;

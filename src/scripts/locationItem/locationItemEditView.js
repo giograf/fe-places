@@ -32,11 +32,13 @@ export default class LocationItemEditView extends LocationItem {
             name="name" 
             class="location-item-edit-view__name" 
             value="${locationItem.title}" 
+            aria-label="Place's title"
             placeholder="Name" class="" />
         <textarea 
             name="description" 
             rows="7" 
             class="location-item-edit-view__description"
+            aria-label="Place's description"
             placeholder="Description" class="">${locationItem.description}</textarea>
         <div class="location-item-edit-view__footer">
             <input 
@@ -45,13 +47,15 @@ export default class LocationItemEditView extends LocationItem {
                 class="location-item-edit-view__opening-hour" 
                 value="${openingHourString}:${openingMinuteString}" 
                 placeholder="Opening Hour" 
+                aria-label="Place's opening hour"
                 class="" />
             <input 
                 type="time" 
                 name="closing-hour" 
                 class="location-item-edit-view__closing-hour" 
                 value="${closingHourString}:${closingMinuteString}" 
-                placeholder="Closing Hour" 
+                placeholder="Closing Hour"
+                aria-label="Place's closing hour"
                 class="" />
             <button
                 aria-label="${locationItem.favourite ? "Remove from favourites" : "Add to favourites"}"
@@ -161,7 +165,7 @@ export default class LocationItemEditView extends LocationItem {
                     'location-item-full-view--open',
                 );
 
-                this.removeItem();
+                this.removeLocationItem();
             });
     };
 }

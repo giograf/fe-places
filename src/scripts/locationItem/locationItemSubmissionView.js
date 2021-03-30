@@ -25,11 +25,11 @@ export default class LocationItemSubmissionView extends LocationItem {
         }
 
         const html = `  <h2>Add new place:</h2>
-                        <input type="text" name="name" value="${this.title ?? ""}" placeholder="Name" class="" />
-                        <textarea name="description" rows="7" placeholder="Description" class="">${this.description ?? ""}</textarea>
+                        <input type="text" name="name" value="${this.title ?? ""}" placeholder="Name" class="" aria-label="New place's title" />
+                        <textarea name="description" rows="7" placeholder="Description" aria-label="New place's description" class="">${this.description ?? ""}</textarea>
                         <div class="location-item-submission-view__footer">
-                            <input type="time" name="opening-hour" value="${this.openingHour ?? ""}" placeholder="Opening Hour" class="" />
-                            <input type="time" name="closing-hour" value="${this.closingHour ?? ""}" placeholder="Closing Hour" class="" />
+                            <input type="time" name="opening-hour" value="${this.openingHour ?? ""}" placeholder="Opening Hour" aria-label="New place's opening hour" class="" />
+                            <input type="time" name="closing-hour" value="${this.closingHour ?? ""}" placeholder="Closing Hour" aria-label="New place's closing hour" class="" />
                             <button
                                 aria-label="${this.favourite ? "Remove from favourites" : "Add to favourites"}"
                                 class="location-item-submission-view__favourite"

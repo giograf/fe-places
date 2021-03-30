@@ -7,11 +7,8 @@ export default class LocationItemApi {
 
     }
 
-    deleteLocationItem = (item) => {
-
-    }
-
-    removeItem = async (item) => {
+    removeLocationItem = async (item) => {
+        // TODO: fetch CORS issue and treat response success/error properly
         let downloadedItemsRaw = await fetch('https://us-central1-lamia-application.cloudfunctions.net/removePlace', {
                 method: "POST",
                 headers: {

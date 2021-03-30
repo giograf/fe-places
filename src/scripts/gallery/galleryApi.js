@@ -1,54 +1,97 @@
 import LocationItem from '../locationItem/locationItem';
 export default class GalleryApi {
-    getLocationItems = async (openNow, onlyFavourites, downloadedItems) => {
-        // TODO: Connect to Firestore (Mock Data) 
-        if (downloadedItems) {
-            
-        } else {
-            let downloadedItemsRaw = await fetch('https://us-central1-lamia-application.cloudfunctions.net/getAllPlaces', {
+    downloadedItems = [];
+
+    getLocationItems = async (
+        openNow,
+        onlyFavourites,
+        searchQuery,
+        keywordsMode,
+    ) => {
+        let downloadedItemsRaw = await fetch(
+            'https://us-central1-lamia-application.cloudfunctions.net/getAllPlaces',
+            {
                 headers: {
                     'Content-Type': 'application/json',
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Headers": "Access-Control-Allow-Headers" +
-                    "Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-                }
-            });
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers':
+                        'Access-Control-Allow-Headers' +
+                        'Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+                },
+            },
+        );
 
-            downloadedItemsRaw = await downloadedItemsRaw.json();
-            downloadedItemsRaw = downloadedItemsRaw.result;
+        downloadedItemsRaw = await downloadedItemsRaw.json();
+        downloadedItemsRaw = downloadedItemsRaw.result;
 
-            downloadedItems = downloadedItemsRaw.map(downloadedItemRaw => {
-                return new LocationItem(
-                    {
-                        id: downloadedItemRaw.id,
-                        title: downloadedItemRaw.title,
-                        description: downloadedItemRaw.description,
-                        openingHour: downloadedItemRaw.openingHour,
-                        closingHour: downloadedItemRaw.closingHour,
-                        geolocation: {lng: downloadedItemRaw.geopoint?._longitude, lat: downloadedItemRaw.geopoint?._latitude},
-                        keywords: downloadedItemRaw.keywords,
-                        favourite: downloadedItemRaw.favourite
-                    }
-                ).getLocationItem()
-            })
+        this.downloadedItems = downloadedItemsRaw.map((downloadedItemRaw) => {
+            return new LocationItem({
+                id: downloadedItemRaw.id,
+                title: downloadedItemRaw.title,
+                description: downloadedItemRaw.description,
+                openingHour: downloadedItemRaw.openingHour,
+                closingHour: downloadedItemRaw.closingHour,
+                geolocation: {
+                    lng: downloadedItemRaw.geopoint?._longitude,
+                    lat: downloadedItemRaw.geopoint?._latitude,
+                },
+                keywords: downloadedItemRaw.keywords,
+                favourite: downloadedItemRaw.favourite,
+            }).getLocationItem();
+        });
+
+        this.filterItemsBy(openNow, onlyFavourites, searchQuery, keywordsMode);
+
+        return this.downloadedItems;
+    };
+
+    filterItemsBy = (openNow, onlyFavourites, searchQuery, keywordsMode) => {
+        // TODO: move logic to BE in the future
+        if (searchQuery) {
+            if (keywordsMode) {
+                this.downloadedItems = this.downloadedItems.filter(
+                    (downloadedLocationItem) => {
+                        return downloadedLocationItem.keywords?.length > 0 && downloadedLocationItem.keywords.includes(searchQuery)
+                });
+            } else {
+                this.downloadedItems = this.downloadedItems.filter(
+                    (downloadedLocationItem) => {
+                        return (
+                            downloadedLocationItem.title
+                                .toLowerCase()
+                                .search(searchQuery.toLowerCase()) !== -1 ||
+                            downloadedLocationItem.description
+                                .toLowerCase()
+                                .search(searchQuery.toLowerCase()) !== -1
+                        );
+                    },
+                );
+            }
         }
 
         if (openNow && onlyFavourites) {
-            downloadedItems = downloadedItems.filter(downloadedLocationItem => {
-                return downloadedLocationItem.favourite && this.isLocationItemOpenNow(downloadedLocationItem);
-            });
+            this.downloadedItems = this.downloadedItems.filter(
+                (downloadedLocationItem) => {
+                    return (
+                        downloadedLocationItem.favourite &&
+                        this.isLocationItemOpenNow(downloadedLocationItem)
+                    );
+                },
+            );
         } else if (openNow) {
-            downloadedItems = downloadedItems.filter(downloadedLocationItem => {
-                return this.isLocationItemOpenNow(downloadedLocationItem);
-            });
+            this.downloadedItems = this.downloadedItems.filter(
+                (downloadedLocationItem) => {
+                    return this.isLocationItemOpenNow(downloadedLocationItem);
+                },
+            );
         } else if (onlyFavourites) {
-            downloadedItems = downloadedItems.filter(downloadedLocationItem => {
-                return downloadedLocationItem.favourite;
-            });
+            this.downloadedItems = this.downloadedItems.filter(
+                (downloadedLocationItem) => {
+                    return downloadedLocationItem.favourite;
+                },
+            );
         }
-
-        return downloadedItems;
-    }
+    };
 
     isLocationItemOpenNow = (downloadedItem) => {
         const currentDate = new Date();
@@ -62,11 +105,14 @@ export default class GalleryApi {
             closingDate.setHours(downloadedItem.closingHour.hour);
             closingDate.setMinutes(downloadedItem.closingHour.minute);
 
-            if (currentDate.getTime() > openingDate.getTime() && currentDate.getTime() < closingDate.getTime()) {
+            if (
+                currentDate.getTime() > openingDate.getTime() &&
+                currentDate.getTime() < closingDate.getTime()
+            ) {
                 return true;
             }
         }
 
         return false;
-    }
+    };
 }

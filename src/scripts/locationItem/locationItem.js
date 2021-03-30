@@ -16,8 +16,8 @@ export default class LocationItem {
         this.locationItemApi = new LocationItemApi();
     }
 
-    removeItem = async () => {
-        this.locationItemApi.removeItem(this.item)
+    removeLocationItem = async () => {
+        this.locationItemApi.removeLocationItem(this.item)
     }
 
     removeKeyword = async (keyword) => {

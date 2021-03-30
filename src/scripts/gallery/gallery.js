@@ -14,18 +14,24 @@ export default class Gallery {
         this.locationItemFullView = null;
         this.googleMap = googleMap;
         this.navigation = navigation;
+        this.searchQuery = "";
+        this.keywordsMode = false;
         this.locationItems = this.getLocationItems();
 
         // Render the initial set of location items
         this.locationItemClickHandler();
         this.onlyFavouritesButtonClickedHandler();
         this.openNowButtonClickedHandler();
+        this.searchButtonClickedHandler();
+        this.keywordsModeButtonClickedHandler();
     }
 
-    getLocationItems = async (openNow, onlyFavourites) => {
+    getLocationItems = async () => {
         this.locationItems = await this.galleryApi.getLocationItems(
-            openNow,
-            onlyFavourites,
+            this.openNow,
+            this.onlyFavourites,
+            this.searchQuery,
+            this.keywordsMode
         );
 
         this.locationItemsToHtml(this.locationItems);
@@ -33,23 +39,15 @@ export default class Gallery {
     };
 
     onlyFavouritesButtonClickedHandler = () => {
-        // TODO: add event listener
         document
             .querySelector('.gallery_search-only-favourites')
             .addEventListener('click', async (event) => {
                 this.onlyFavouritesSelected = !this.onlyFavouritesSelected;
-                this.locationItems = await this.getLocationItems(
-                    this.openNowSelected,
-                    this.onlyFavouritesSelected,
-                    this.locationItems,
-                );
+                this.locationItems = await this.getLocationItems();
 
                 this.onlyFavouritesSelected ?
                     event.target.classList.add("gallery_search-only-favourites--selected") :
                     event.target.classList.remove("gallery_search-only-favourites--selected");
-
-                this.locationItemsToHtml(this.locationItems);
-                // TODO: Add map marker update
             });
     };
 
@@ -58,18 +56,32 @@ export default class Gallery {
             .querySelector('.gallery_search-only-open')
             .addEventListener('click', async (event) => {
                 this.openNowSelected = !this.openNowSelected;
-                this.locationItems = await this.getLocationItems(
-                    this.openNowSelected,
-                    this.onlyFavouritesSelected,
-                    this.locationItems,
-                );
+                this.locationItems = await this.getLocationItems();
 
                 this.openNowSelected ?
                     event.target.classList.add("gallery_search-only-open--selected") :
                     event.target.classList.remove("gallery_search-only-open--selected");
+            });
+    };
 
-                this.locationItemsToHtml(this.locationItems);
-                // TODO: Add map marker update
+    searchButtonClickedHandler = async () => {
+        document
+            .querySelector('.gallery__search-button')
+            .addEventListener('click', async (event) => {
+                this.searchQuery = document.querySelector(".gallery__search-query").value;
+                this.locationItems = await this.getLocationItems();
+            });
+    };
+    
+    keywordsModeButtonClickedHandler = async () => {
+        document
+            .querySelector('.gallery__search-keywords-button')
+            .addEventListener('click', async (event) => {
+                this.keywordsMode = !this.keywordsMode;
+                document.querySelector(".gallery__search-query").value = "";
+                this.keywordsMode ?
+                document.querySelector('.gallery__search-keywords-button').classList.add("gallery__search-keywords-button--clicked") :
+                document.querySelector('.gallery__search-keywords-button').classList.remove("gallery__search-keywords-button--clicked");
             });
     };
 
