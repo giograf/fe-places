@@ -53,20 +53,18 @@ export default class GalleryApi {
     isLocationItemOpenNow = (downloadedItem) => {
         const currentDate = new Date();
 
-        if (downloadedItem.openingHour) {
+        if (downloadedItem.openingHour && downloadedItem.closingHour) {
             const openingDate = new Date();
             openingDate.setHours(downloadedItem.openingHour.hour);
             openingDate.setMinutes(downloadedItem.openingHour.minute);
-        }
 
-        if (downloadedItem.closingHour) {
             const closingDate = new Date();
             closingDate.setHours(downloadedItem.closingHour.hour);
             closingDate.setMinutes(downloadedItem.closingHour.minute);
-        }
 
-        if (currentDate.getTime() > openingDate.getTime() && currentDate.getTime() < closingDate.getTime()) {
-            return true;
+            if (currentDate.getTime() > openingDate.getTime() && currentDate.getTime() < closingDate.getTime()) {
+                return true;
+            }
         }
 
         return false;
