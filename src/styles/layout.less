@@ -1,5 +1,10 @@
 @import './globals.less';
 
+.places {
+    height: 100vh;
+    height: -webkit-fill-available;
+}
+
 .places__menu {
     height: 52px;
     background-color: @background-color-primary;
@@ -58,7 +63,8 @@
         //background: #fefefe;
 
         &.places__gallery--open {
-            position: absolute;
+            display: flex;
+            flex-direction: column;
             transform: translateX(0);
             width: @sidebar-width-mobile;
 
