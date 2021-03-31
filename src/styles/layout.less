@@ -20,7 +20,7 @@
 
 .places__map {
     width: 100vw;
-    height: calc(100% - 52px);
+    height: calc(100vh - 52px);
 }
 
 .location-item-full-view--open {
@@ -37,7 +37,7 @@
 .location-item-edit-view {
     display: block;
     position: absolute;
-    height: calc(100% - 52px);
+    height: calc(100vh - 52px);
     transform: translateX(@sidebar-width-mobile-minus);
     transition: all 150ms ease-out;
     padding: 10px;
@@ -119,7 +119,7 @@
     }
 
     .places__map {
-        height: calc(100% - 70px);
+        height: calc(100vh - 70px);
         grid-area: Map;
         width: 100%;
     }
@@ -128,7 +128,7 @@
     .location-item-submission-view,
     .location-item-edit-view {
         top: 70px;
-        height: calc(100% - 70px);
+        height: calc(100vh - 70px);
         transform: translateX(@sidebar-width-tablet-minus);
         width: @sidebar-width-tablet;
 
@@ -150,7 +150,7 @@
     .location-item-submission-view,
     .location-item-edit-view {
         top: 70px;
-        height: calc(100% - 70px);
+        height: calc(100vh - 70px);
         width: @sidebar-width-desktop;
         transform: translateX(@sidebar-width-desktop-minus);
 
